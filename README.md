@@ -1,4 +1,4 @@
-# Local Agentic RAG System (No API Required)
+# Agentic RAG System (No API Required)
 A simple implementation of a local Retrieval-Augmented Generation (RAG) system with agent-like capabilities.
 
 ## Project Overview
