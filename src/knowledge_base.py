@@ -10,9 +10,10 @@ class KnowledgeBase:
         self.model = SentenceTransformer('all-MiniLM-L6-v2')
         self.sentences = []
         self.embeddings = None
+        self.similarity_threshold = 0.3
         print("Knowledge base initialized!")
 
-    def add_text(self, text):
+    def add_text(self, text):  # This method should be named add_text
         """Add text to knowledge base"""
         new_sentences = split_into_sentences(text)
         
@@ -42,6 +43,15 @@ class KnowledgeBase:
         # Calculate similarities
         similarities = cosine_similarity(query_embedding, self.embeddings)[0]
         
-        # Get top results
-        top_indices = similarities.argsort()[-num_results:][::-1]
+        # Get top results that meet the threshold
+        relevant_indices = [i for i, sim in enumerate(similarities) 
+                          if sim >= self.similarity_threshold]
+        
+        if not relevant_indices:
+            return []
+            
+        # Sort by similarity and get top results
+        relevant_indices.sort(key=lambda i: similarities[i], reverse=True)
+        top_indices = relevant_indices[:num_results]
+        
         return [self.sentences[i] for i in top_indices]

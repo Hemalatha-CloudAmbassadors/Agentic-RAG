@@ -14,7 +14,7 @@ def main():
     # Load initial knowledge
     try:
         knowledge_text = load_text_file('data/knowledge.txt')
-        agent.add_knowledge(knowledge_text)
+        agent.add_text(knowledge_text)  # Changed from add_knowledge to add_text
     except FileNotFoundError:
         print("Warning: knowledge.txt not found. Starting with empty knowledge base.")
     
@@ -42,7 +42,7 @@ def main():
             filename = user_input[5:].strip()
             try:
                 new_knowledge = load_text_file(filename)
-                agent.add_knowledge(new_knowledge)
+                agent.add_text(new_knowledge)  # Changed from add_knowledge to add_text
                 print(f"Successfully loaded knowledge from {filename}")
             except FileNotFoundError:
                 print(f"Error: File '{filename}' not found.")
